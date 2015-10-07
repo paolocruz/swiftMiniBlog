@@ -13,6 +13,10 @@ import CoreData
 class EditBlogController: BaseController{
     
     var editBlogView: EditBlogView?
+    var blogPostTitle: String?
+    var blogPostContent: String?
+    var blogAuthor: String?
+    var blogPostDate: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +27,8 @@ class EditBlogController: BaseController{
         
         // Initialize UI Elements
         self.initializeNavigationBar()
+        self.editBlogView?.blogTitleTextField.text = blogPostTitle
+        self.editBlogView?.blogPostTextView.text = blogPostContent
         
     }
     
@@ -30,35 +36,32 @@ class EditBlogController: BaseController{
     func updateBlog(){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let entity =  NSEntityDescription.entityForName("BlogPost",
-            inManagedObjectContext:managedContext)
-        let blogPost:BlogPost = BlogPost(entity: entity!,
-            insertIntoManagedObjectContext: managedContext)
-        blogPost.title = self.editBlogView?.blogTitleTextField.text
-        blogPost.content = self.editBlogView?.blogPostTextView.text
-        blogPost.date = NSDate()
         
-        let authEntity =  NSEntityDescription.entityForName("Author",
-            inManagedObjectContext:managedContext)
-        let auth:Author = Author(entity: authEntity!,
-            insertIntoManagedObjectContext: managedContext)
-        auth.name = SessionManager.sharedInstance.sessionName
-        blogPost.blogpost_author = auth
+        let fetchRequest = NSFetchRequest(entityName: "BlogPost")
+        fetchRequest.predicate = NSPredicate(format: "date = %@", blogPostDate!)
         
         do {
-            try managedContext.save()
-            self.navigationController?.popViewControllerAnimated(true)
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
+            let fetchResults = try appDelegate.managedObjectContext.executeFetchRequest(fetchRequest) as? [BlogPost]
+            if fetchResults!.count != 0{
+                
+                let managedObject = fetchResults![0]
+                managedObject.setValue(self.editBlogView?.blogTitleTextField.text, forKey: "title")
+                managedObject.setValue(self.editBlogView?.blogPostTextView.text, forKey: "content")
+                
+                try managedContext.save()
+            }
         }
-        
+        catch let error as NSError {
+            print("\(error)")
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     // MARK: Controller Initializers
     
     func initializeNavigationBar(){
         
-        let editBlogButtonItem = UIBarButtonItem(title: "Post", style: .Plain, target: self, action: Selector("updateBlog"))
+        let editBlogButtonItem = UIBarButtonItem(title: "Update Post", style: .Plain, target: self, action: Selector("updateBlog"))
         
         self.navigationItem.rightBarButtonItem = editBlogButtonItem
         

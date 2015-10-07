@@ -13,6 +13,7 @@ class HomeController: BaseController, UITableViewDataSource, UITableViewDelegate
 
     var homeView: HomeView?
     var blogPosts:[BlogPost]?
+    var row: Int?
     // MARK: Lifecycle method override
     
     override func viewDidLoad() {
@@ -83,6 +84,34 @@ class HomeController: BaseController, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         return 70.0
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        row = indexPath.row
+        let blogPost:BlogPost = self.blogPosts![indexPath.row]
+
+        if  (blogPost.blogpost_author!.name! == SessionManager.sharedInstance.sessionName){
+            self.performSegueWithIdentifier("editBlog", sender: self)
+        }
+        else{
+            let alert = UIAlertController(title: "Alert", message: "You cannot edit the post of other authors", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "editBlog" {
+            if let dest:EditBlogController = segue.destinationViewController as? EditBlogController {
+                let blogPost:BlogPost = self.blogPosts![row!]
+                dest.blogPostDate = blogPost.date!
+                dest.blogPostTitle = blogPost.title!
+                dest.blogPostContent = blogPost.content!
+                dest.blogAuthor = blogPost.blogpost_author!.name!
+            }
+        }
     }
     
     

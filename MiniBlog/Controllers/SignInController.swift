@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class SignInController: BaseController,GIDSignInUIDelegate{
+class SignInController: BaseController,GIDSignInUIDelegate,SignInViewDelegate{
     
     var signInView: SignInView?
     
@@ -21,12 +21,18 @@ class SignInController: BaseController,GIDSignInUIDelegate{
         self.signInView = (self.view as! SignInView)
         GIDSignIn.sharedInstance().uiDelegate = self
         self.signInView!.myActivityIndicator.hidden = true
-        
+        self.signInView!.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector: "receiveToggleAuthUINotification:",
             name: "ToggleAuthUINotification",
             object: nil)
 
+    }
+    
+    func signOutButtonPressed() {
+        self.signInView!.signOutButton.hidden = true
+        self.signInView!.signInButton.hidden = false
+        GIDSignIn.sharedInstance().signOut()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,6 +59,8 @@ class SignInController: BaseController,GIDSignInUIDelegate{
     
     func goToHome()
     {
+        self.signInView!.signInButton.hidden = true
+        self.signInView!.signOutButton.hidden = false
         self.performSegueWithIdentifier("goToHome", sender: self)
     }
     

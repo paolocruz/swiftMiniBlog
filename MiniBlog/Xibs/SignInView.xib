@@ -28,12 +28,27 @@
                     </constraints>
                     <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </activityIndicatorView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OqM-Bo-mtc">
+                    <rect key="frame" x="215" y="285" width="171" height="30"/>
+                    <color key="backgroundColor" red="0.67843137249999996" green="0.78823529410000004" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="4Pf-vO-zgX"/>
+                        <constraint firstAttribute="width" constant="171" id="CT1-SE-gQA"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Sign Out To Google"/>
+                    <connections>
+                        <action selector="signOutButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="bD6-88-aMw"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="OqM-Bo-mtc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0JD-b3-rM9"/>
                 <constraint firstItem="R8W-h9-3Nu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="2wt-EB-Srn"/>
                 <constraint firstItem="Bzh-gj-qgT" firstAttribute="leading" secondItem="R8W-h9-3Nu" secondAttribute="trailing" constant="-104" id="4s4-bn-xh4"/>
                 <constraint firstItem="R8W-h9-3Nu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="285" id="Jb2-eX-0Lt"/>
+                <constraint firstItem="OqM-Bo-mtc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="KSX-oq-M59"/>
                 <constraint firstItem="R8W-h9-3Nu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Sy3-gl-Zzg"/>
                 <constraint firstItem="R8W-h9-3Nu" firstAttribute="top" secondItem="Bzh-gj-qgT" secondAttribute="bottom" constant="-33" id="bnp-i2-HCe"/>
             </constraints>
@@ -45,6 +60,7 @@
             <connections>
                 <outlet property="myActivityIndicator" destination="Bzh-gj-qgT" id="o2m-Ed-yiK"/>
                 <outlet property="signInButton" destination="R8W-h9-3Nu" id="hkI-X5-NKT"/>
+                <outlet property="signOutButton" destination="OqM-Bo-mtc" id="8iz-Cl-MwA"/>
             </connections>
         </view>
     </objects>
