@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SignInView" customModule="MiniBlog" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8W-h9-3Nu" customClass="GIDSignInButton">
+                    <rect key="frame" x="215" y="285" width="171" height="30"/>
+                    <color key="backgroundColor" red="0.67843137249999996" green="0.78823529410000004" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="171" id="3Cg-pj-zUB"/>
+                        <constraint firstAttribute="height" constant="30" id="hRe-wQ-rBR"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Sign In To Google"/>
+                </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Bzh-gj-qgT">
+                    <rect key="frame" x="282" y="281" width="37" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="37" id="AKJ-VS-jI1"/>
+                        <constraint firstAttribute="height" constant="37" id="Omh-Fg-Ub6"/>
+                    </constraints>
+                    <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="R8W-h9-3Nu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="2wt-EB-Srn"/>
+                <constraint firstItem="Bzh-gj-qgT" firstAttribute="leading" secondItem="R8W-h9-3Nu" secondAttribute="trailing" constant="-104" id="4s4-bn-xh4"/>
+                <constraint firstItem="R8W-h9-3Nu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="285" id="Jb2-eX-0Lt"/>
+                <constraint firstItem="R8W-h9-3Nu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Sy3-gl-Zzg"/>
+                <constraint firstItem="R8W-h9-3Nu" firstAttribute="top" secondItem="Bzh-gj-qgT" secondAttribute="bottom" constant="-33" id="bnp-i2-HCe"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Jb2-eX-0Lt"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="myActivityIndicator" destination="Bzh-gj-qgT" id="o2m-Ed-yiK"/>
+                <outlet property="signInButton" destination="R8W-h9-3Nu" id="hkI-X5-NKT"/>
+            </connections>
+        </view>
+    </objects>
+</document>
